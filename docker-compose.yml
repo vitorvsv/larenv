@@ -1,0 +1,62 @@
+################################################################
+# Ambiente de desenvolvimento com Laravel
+#
+# Desenvolvido por: Vitor Soares Vian <vitorsoaresvian@gmail.com>
+#################################################################
+
+### Services Setup ############################################
+
+version: "3"
+services:
+  larenv_php_apache:
+
+      build: larenv_php_apache/.
+      restart: always
+      volumes:
+          - ~/projects/sites_base:/app
+          - ~/projects/sites_base/shared:/shared
+      tty: true
+      networks:
+          default:
+              ipv4_address: 10.10.10.2
+      ports:
+          - "9000:9000"
+  larenv_db:
+      build: larenv_db/.
+      restart: always
+      volumes:
+        - ~/mysql_container:/var/lib/mysql
+        - ~/projects/sites_base/shared:/shared
+      networks:
+          default:
+              ipv4_address: 10.10.10.3
+      ports:
+        - "3304:3306"
+  larenv_phpmyadmin:
+      build: larenv_phpmyadmin/.
+      restart: always
+      volumes:
+        - ~/projects/sites_base/shared:/shared
+      links:
+          - larenv_db:db
+      networks:
+          default:
+              ipv4_address: 10.10.10.4
+
+### Volumes Setup ############################################
+
+volumes:
+  shared:
+
+### Networks Setup ############################################
+
+#
+# Crie a rede usando docker network e configure ela aqui
+#
+# Rede esperada por esse docker-compose.yml
+# docker network create --subnet 10.10.10.0/16 larenv_network
+#
+networks:
+  default:
+    external:
+      name: larenv_network
