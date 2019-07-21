@@ -22,7 +22,7 @@ services:
       ports:
           - "9000:9000"
   larenv_db:
-      build: larenv_db/.
+      build: larenv_mysql/.
       restart: always
       volumes:
         - ~/mysql_container:/var/lib/mysql
