@@ -3,16 +3,17 @@
 This enviroment contains the following configurations:
 
 * PHP + Apache  = larenv_php_apache
-* MariaDB 	    = larenv_db
+* MariaDB 	    = larenv_mysql
+* Postgres 	    = larenv_postgres
 * PhpMyAdmin    = larenv_phpmyadmin
 
 # Network
 
 To default the enviroment use the 10.10.10.0/16 networks (larenv_network)
 
-* 10.10.10.2 = PHP + Apache  = larenv_php_apache
-* 10.10.10.3 = MariaDB 	     = larenv_db
-* 10.10.10.4 = PhpMyAdmin    = larenv_phpmyadmin
+* 10.10.10.2 = PHP + Apache     = larenv_php_apache
+* 10.10.10.3 = MariaDB/Postgres = larenv_db
+* 10.10.10.4 = PhpMyAdmin       = larenv_phpmyadmin
 
 # Considerations
 
@@ -41,7 +42,7 @@ networks:
 
 <h2>Steep 2 - Folders</h2>
 
-if don't exists in folder larenv_db the folders scripts and bases, create that. Use the command bellow
+if don't exists in folder larenv_mysql/larenv_postgres the folders scripts and bases, create that. Use the command bellow
 
 mkdir larenv_db/scripts && mkdir larenv_db/bases
 
@@ -49,11 +50,12 @@ mkdir larenv_db/scripts && mkdir larenv_db/bases
 
 The docker-compose is responsible to build all developer enviroment, than we can configure.
 
-In line bellow configure the path to your project or folder to apache root.
+In line bellow configure the path to your project or folder to apache root. Normally use the path '../' if you clone this
+repository inside of your project.
 
 ``` /home/vitor/www_vitor/vitor:/app ```
 
-change too the local where the database files are.
+change too the local where the database files are (The databases are stored out of container).
 
 ``` ~/bases_larenv:/var/lib/mysql ```
 
@@ -75,7 +77,7 @@ Is necessary configure your database connection to use the IP of you container d
 
 <h2>Steep 5 - Configuring Database</h2>
 
-If you put yours dumps' databases in larenv_db/bases, you can execute the followind command
+If you put yours dumps' databases in larenv_mysql/bases or larenv_postgres/bases, you can execute the followind command
 to create your databases (the script put the name file how database name)
 
 ``` sudo docker exec -it larenv_db_1 bash create_db``
