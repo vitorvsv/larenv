@@ -83,7 +83,7 @@ Is necessary configure your database connection to use the IP of you container d
 If you put yours dumps' databases in larenv_mysql/bases or larenv_postgres/bases, you can execute the followind command
 to create your databases (the script put the name file how database name)
 
-``` sudo docker exec -it larenv_db_1 bash create_db``
+``` sudo docker exec -it larenv_db_1 bash create_db```
 
 Or you can create your database using phpmyadmin, or put your dump in shared folder and than
 get this file in your container and make restore using mysql/postgres command line.
