@@ -12,7 +12,7 @@ This enviroment contains the following configurations:
 To default the enviroment use the 10.10.10.0/16 networks (larenv_network)
 
 * 10.10.10.2 = PHP + Apache     = larenv_php_apache
-* 10.10.10.3 = MariaDB/Postgres = larenv_db
+* 10.10.10.3 = MariaDB/Postgres = larenv_mysql/larenv_postgres
 * 10.10.10.4 = PhpMyAdmin       = larenv_phpmyadmin
 
 # Considerations
