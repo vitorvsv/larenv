@@ -1,5 +1,5 @@
 FROM mariadb:10.1
-ENV MYSQL_DATABASE=site_base
+ENV MYSQL_DATABASE=greenhouse
 ENV MYSQL_ROOT_PASSWORD=root
 VOLUME /shared
 ADD bases /bases

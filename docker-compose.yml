@@ -13,8 +13,8 @@ services:
       build: larenv_php_apache/.
       restart: always
       volumes:
-          - ../:/app
-          - ./shared:/shared
+          - ../:/app:Z
+          - ./shared:/shared:Z
       tty: true
       networks:
           default:
@@ -25,8 +25,8 @@ services:
       build: larenv_mysql/.
       restart: always
       volumes:
-        - ~/mysql_container:/var/lib/mysql
-        - ./shared:/shared
+        - ~/mysql_container:/var/lib/mysql:Z
+        - ./shared:/shared:Z
       networks:
           default:
               ipv4_address: 10.10.10.3
@@ -36,7 +36,7 @@ services:
       build: larenv_phpmyadmin/.
       restart: always
       volumes:
-        - ./shared:/shared
+          - ./shared:/shared:Z
       links:
           - larenv_db:db
       networks:
