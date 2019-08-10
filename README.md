@@ -3,8 +3,8 @@
 This enviroment contains the following configurations:
 
 * PHP + Apache  = larenv_php_apache
-* MariaDB 	    = larenv_mysql
-* Postgres 	    = larenv_postgres
+* MariaDB 	= larenv_mysql
+* Postgres 	= larenv_postgres
 * PhpMyAdmin    = larenv_phpmyadmin
 
 # Network
@@ -20,6 +20,8 @@ To default the enviroment use the 10.10.10.0/16 networks (larenv_network)
 * At the larenv_php_apache there is an user called application, he has access to an folder (/shared)
 that is shared with others containers and with the host. If is necessary use this feature, pass the --user=application
 flag when make docker exec.
+* All volumes shared between the host and the container would will configured with the ':Z' or ':z' flags in the end of the line. 
+The ':Z' flag indicates shared in the host and the container only. The ':z' indicates shared with others containers.
 
 # Configurations
 
@@ -44,16 +46,17 @@ networks:
 
 if don't exists in folder larenv_mysql/larenv_postgres the folders scripts and bases, create that. Use the command bellow
 
-mkdir larenv_db/scripts && mkdir larenv_db/bases
+mkdir larenv_mysql/scripts && mkdir larenv_mysql/bases
+mkdir larenv_postgres/scripts && mkdir larenv_postgres/bases
 
 <h2>Steep 3 - Docker Compose</h2>
 
-The docker-compose is responsible to build all developer enviroment, than we can configure.
+The docker-compose is responsible to build all development enviroment, than we can configure.
 
 In line bellow configure the path to your project or folder to apache root. Normally use the path '../' if you clone this
 repository inside of your project.
 
-``` /home/vitor/www_vitor/vitor:/app ```
+``` ../:/app ```
 
 change too the local where the database files are (The databases are stored out of container).
 
@@ -61,7 +64,7 @@ change too the local where the database files are (The databases are stored out 
 
 This line configure one folder that is shared to all containers.
 
-``` /home/vitor/www_vitor/vitor/larenv/enviroment/shared/:/shared ```
+``` ./shared/:/shared ```
 
 OBS: In the container is make a directory /shared
 
@@ -83,6 +86,6 @@ to create your databases (the script put the name file how database name)
 ``` sudo docker exec -it larenv_db_1 bash create_db``
 
 Or you can create your database using phpmyadmin, or put your dump in shared folder and than
-get this file in your container and make dump up using mysql command line.
+get this file in your container and make restore using mysql/postgres command line.
 
 That is all, guys!
