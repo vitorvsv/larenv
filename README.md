@@ -23,6 +23,7 @@ flag when make docker exec.
 * All volumes shared between the host and the container will be configured with the ':Z' or ':z' flags in the end of the line. 
 The ':Z' flag indicates shared in the host and the container only. The ':z' indicates shared with other containers.
 
+
 # Configurations
 
 <h2>Step 1 - Network</h2>
