@@ -1,4 +1,4 @@
-# Development docker environment to Laravel Framework
+# Docker development environment to Laravel Framework
 
 This environment contains the following configurations:
 
@@ -23,25 +23,21 @@ flag when make docker exec.
 * All volumes shared between the host and the container will be configured with the ':Z' or ':z' flags in the end of the line. 
 The ':Z' flag indicates shared in the host and the container only. The ':z' indicates shared with other containers.
 
+* For executing the docker commands without sudo, add your user to the docker group :
+``` sudo usermod -aG docker $(whoami) ```
 
 # Configurations
 
 <h2>Step 1 - Network</h2>
 
-If you want to change the default network, is necessary to change the file docker-compose.yml
+A default network is available at the docker-compose.yml file, execute the following command to create it at your computer:
 
-use the following command to change the network, changing the network and the name as you wish.
+```docker network create --subnet 10.10.10.0/16 larenv_network ```
 
-```sudo docker network create --subnet 10.10.10.0/16 larenv_network ```
+You can also change the network name and IP range as you wish or need, just change the line above and the docker-compose.yml file accordingly.
 
-Change the line that contains the name of your network
+If you want to use dinamic IPs, drop the lines containing 'networks' and below at the docker-compose.yml file
 
-```
-networks:
-  default:
-    external:
-      name: larenv_network
-```
 
 <h2>Step 2 - Folders for scripts and databases</h2>
 
@@ -49,8 +45,8 @@ You can use scripts and database dump's inside the container. The container will
 
 If the folders scripts and bases don't exist in the folder larenv_mysql/larenv_postgres, create that. Use the following command:
 
-mkdir larenv_mysql/scripts && mkdir larenv_mysql/bases
-mkdir larenv_postgres/scripts && mkdir larenv_postgres/bases
+```mkdir larenv_mysql/scripts && mkdir larenv_mysql/bases```
+```mkdir larenv_postgres/scripts && mkdir larenv_postgres/bases```
 
 
 <h2>Step 3 - Docker Compose</h2>
@@ -76,7 +72,7 @@ OBS: The directory /shared is available inside the container.
 
 To start the container use the following command:
 
-``` sudo docker-compose up -d```
+``` docker-compose up -d```
 
 <h2>Step 4 - config </h2>
 
@@ -87,7 +83,7 @@ Is necessary to configure your database connection to use the IP of the containe
 If you put your databases dump's in larenv_mysql/bases or larenv_postgres/bases, you can execute the following command
 to create your databases (the name of the database will be the name of the file .sql)
 
-``` sudo docker exec -it larenv_db_1 bash create_db```
+``` docker exec -it larenv_db_1 bash create_db```
 
 You can either create your database using phpmyadmin, or put your dump in the shared folder, to get the file
 in your container and restore it using mysql/postgres command line.
